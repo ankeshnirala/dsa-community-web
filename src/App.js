@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+import { toast } from "sonner";
 
-function App() {
+export default function App() {
+  const global = useSelector((state) => state.globalReducer.constants);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <motion.div
+      initial={{ opacity: 0, x: 400 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: 0.5 }}
+    >
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold">Centered Content</h1>
+          <button
+            onClick={() => toast.warning("Uh oh! Something went wrong")}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+          >
+            {global.button}
+          </button>
+        </div>
+      </div>
+    </motion.div>
   );
 }
-
-export default App;
